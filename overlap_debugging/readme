@@ -1,6 +1,6 @@
 Tensorflow Install for Overlap_190716_debugging
 
-Package versions installed on Matthew's laptop:
+Required installs on Matthew's laptop:
 TensorFlow 13.1.1
 TensorFlow-GPU 13.1.1
 CUDAtoolkit 10.0.130
