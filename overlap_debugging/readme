@@ -1,0 +1,11 @@
+Tensorflow Install for Overlap_190716_debugging
+
+Package versions installed on Matthew's laptop:
+TensorFlow 13.1.1
+TensorFlow-GPU 13.1.1
+CUDAtoolkit 10.0.130
+TaylorFlow_190716.py is needed in same directory
+
+Known Issues:
+Overlap values are expected for signals that should match perfectly, but appear higher than normal for signals 
+that should have no reasonable overlap.
