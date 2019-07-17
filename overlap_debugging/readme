@@ -9,3 +9,6 @@ TaylorFlow_190716.py is needed in same directory
 Known Issues:
 Overlap values are expected for signals that should match perfectly, but appear higher than normal for signals 
 that should have no reasonable overlap.
+
+Install for pycbc match:
+Uses the py2 pycbc environment on the arcca jupyter lab
