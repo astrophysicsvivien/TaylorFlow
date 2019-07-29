@@ -1,0 +1,5 @@
+This forms the taylorflow library. 
+Key packages are: 
+python 3.6 or higher
+TensorFlow 1.13.1 or higher
+matplotlib/numpy 
