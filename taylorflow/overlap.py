@@ -7,8 +7,13 @@ def cmplxInnerProd(temp,data,psd,df):
     "computes complex inner product in the fourier domain IP = 4 deltaf sum((a * conguagte(b))/Weights)"
     
     weights = tf.sqrt(psd)
+    norm = (4*df)
+    a_weight = tf.divide(temp,weights)
+    b_conj = tf.conj(data)
+    b_weight = tf.divide(tf.cast(b_conj,dtype=tf.complex64),weights)
+    a_dot_b = tf.reduce_sum(tf.multiply(a_weight,b_weight))
     
-    return tf.multiply((4*df),tf.reduce_sum(tf.multiply(tf.divide(temp,weights),tf.divide(tf.conj(data),weights))))
+    return tf.multiply(norm,a_dot_b)
 
 def InnerProd(temp,data,psd,df):
     "computes inner product in the fourier domain IP = 4 deltaf RE sum((a * conguagte(b))/Weights)"
@@ -17,16 +22,22 @@ def InnerProd(temp,data,psd,df):
 
 def sigsq(temp, psd, df):
     "computes sig^2 = (a|a), which can then be used to normalise function "
-    weights = tf.sqrt(psd)
     
-    return tf.real(tf.multiply((4*df),tf.reduce_sum(tf.multiply(tf.divide(temp,weights),tf.divide(tf.conj(temp),weights)))))
+    weights = tf.sqrt(psd)
+    norm = (4*df)
+    a_weight = tf.divide(temp,weights)
+    b_conj = tf.conj(temp)
+    b_weight = tf.divide(tf.cast(b_conj,dtype=tf.complex64),weights)
+    a_dot_b = tf.reduce_sum(tf.multiply(a_weight,b_weight))
+    
+    return tf.real(tf.multiply(norm,a_dot_b))
 
 def sig(temp, psd, df):
     "returns the sigma value of the signal"
     
     return tf.sqrt(sigsq(temp, psd, df))
 
-def TensorNorm(a):
+def tensornorm(a):
     "divides by max value of tensor to normalise between 0 and 1"
     TensorMax = tf.reduce_max(tf.abs(a))
     Tmax_cmplx_recip = tf.complex(tf.reciprocal(TensorMax),0.)
@@ -41,10 +52,3 @@ def overlap(temp,data,psd,df):
     overlap = tf.multiply(norm,inner)
         
     return overlap
-
-def SNR(temp,data,psd,df):
-    "Returns the SNR along with the normalization"
-    norm = tf.reciprocal(sig(temp,psd,df))
-    inner = InnerProd(temp,data,psd,df)
-    
-    return tf.multiply(norm,inner)
