@@ -1,4 +1,4 @@
-This forms the taylorflow library. 
+This forms the taylorflow module. 
 Key packages are: 
 python 3.6
 TensorFlow 1.14 or higher
