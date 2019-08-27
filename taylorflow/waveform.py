@@ -1,13 +1,8 @@
-#Preamble
 import tensorflow as tf
 #enable Eager execution
 tf.enable_eager_execution()
 
 import numpy as np
-import matplotlib.pyplot as plt
-
-#Start Interactive Session
-sess = tf.InteractiveSession()
 
 def PN_phases(freq,mTot,eta,phase_order):
     """
@@ -90,7 +85,7 @@ def PN_amplitude(freq,ChirpMass,LuminosityDistance):
                          
     return tf.multiply(term1,tf.multiply(term2,term3))
                          
-def taylorf2(mass1,mass2,frequencies=None,LuminosityDistance=1.,f_low=10.,
+def getwaveform(mass1,mass2,frequencies=None,LuminosityDistance=1.,f_low=10.,
                df=1./512,f_high=1600.,phase_order=0):
     """
     TaylorFlow Main Function
@@ -118,8 +113,7 @@ def taylorf2(mass1,mass2,frequencies=None,LuminosityDistance=1.,f_low=10.,
         frequencies[0] = 1
         frequencies = tf.Variable(frequencies,name= "frequencies",dtype= tf.float32)
         
-            
-        
+
     #other constants                     
     L_D =  tf.constant((3.086e+22*LuminosityDistance),name="LuminosityDistance",dtype=tf.float32) 
     
