@@ -1,0 +1,3 @@
+The Future work folder contain ipynb files that were being worked on and have problems at the end of the MSc project.
+Currently there are two files here, the first is tf_BNS where it was attempted to recover parameters from the BNS merger GW170817. The TaylorFlow functions are outputing data but the signal cannot currently be found. I suspect the problem lies with thew filtering or whitening of the detector data.
+The second is TF_PYCBC_BNS, the goal of this script was similar to tf_BNS except that I attempted to port TaylorFlow waveforms into PyCBC data types and use them to find the signal, this similarly failed. Again, I suspect the filtering or whitening of the data.
