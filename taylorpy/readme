@@ -1,1 +1,3 @@
-Waveform and overlap equation coded in python syntax
+Waveform and overlap equation coded in python syntax for comparison with TaylorFlow
+
+latest numpy version is a required import
