@@ -86,7 +86,7 @@ def PN_amplitude(freq,ChirpMass,LuminosityDistance):
     return tf.multiply(term1,tf.multiply(term2,term3))
                          
 def getwaveform(mass1,mass2,frequencies=None,LuminosityDistance=1.,f_low=10.,
-               df=1./512,f_high=1600.,phase_order=0):
+               df=1./512,f_high=1600.,phase_order=7):
     """
     TaylorFlow Main Function
     
