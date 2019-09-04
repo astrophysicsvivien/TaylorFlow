@@ -1,3 +1,9 @@
+import tensorflow as tf
+#enable Eager execution
+tf.enable_eager_execution()
+
+import numpy as np
+
 def tensornorm(a):
     """divides by max value of tensor to normalise between 0 and 1"""
     TensorMax = tf.reduce_max(tf.abs(a))
