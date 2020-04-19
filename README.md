@@ -1,9 +1,22 @@
-# TaylorFlow
 
-The TaylorFlow modules performs Gravitational Wave calculations within TensorFlow 1.14
+TaylorFlow
+==============
+The updated Taylorflow module for Tensorflow 2
 
-There are two main functions within the package:
+Table of Contents
+==============
 
-Waveform- this module calculates TaylorF2 waveform models up to 3.5PN order in the frequency domain. These object are tensor outputs but can easily be coverted in NumPY arrays (demoed in tutiorial)
+Installation
+==============
 
-overlap - This modules calculates comparison functions such as the inner product, match and relative log likelihood, examples of the usage of these functions are given in the tutorial section.
+Usage
+==============
+
+Contributing
+==============
+
+Credits
+==============
+
+License
+==============
