@@ -1,22 +1,25 @@
 
-TaylorFlow
-==============
+# TaylorFlow
+## Description
 The updated Taylorflow module for Tensorflow 2
 
-Table of Contents
-==============
+Version: 2.0
 
-Installation
-==============
+## Table of Contents
 
-Usage
-==============
 
-Contributing
-==============
+## Installation
 
-Credits
-==============
 
-License
-==============
+## Usage
+
+
+## Contributing
+
+
+## Credits
+Matthew Woods
+
+
+## License
+
