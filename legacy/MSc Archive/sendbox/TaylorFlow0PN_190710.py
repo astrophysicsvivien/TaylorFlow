@@ -75,7 +75,7 @@ def amp_0PN(freq,ChirpMass,LuminosityDistance):
     return tf.multiply(term1,tf.multiply(term2,term3))
                          
 def TaylorFlow(mass1,mass2,frequencies=None,LuminosityDistance=1.,t_c=-1.0,phi_c=0.,f_low=10.,df=0.1,f_high=2000.):
-    """TaylorFlow"""
+    """taylorflow"""
                          
     #Define variable and constants in TensorFlow variables and constants   
     #Masses and frequencies are required inputs

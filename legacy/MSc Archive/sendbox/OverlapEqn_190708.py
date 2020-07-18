@@ -56,7 +56,7 @@ def overlap(a,b,psd,df):
 # In[9]:
 
 
-#TaylorFlow(mass1,mass2,frequencies,LuminosityDistance=1.,t_c=-1.0,phi_c=np.pi)
+#taylorflow(mass1,mass2,frequencies,LuminosityDistance=1.,t_c=-1.0,phi_c=np.pi)
 #getFrequencies(mass1,mass2,f_low,df)
 
 mass1 = 1.4

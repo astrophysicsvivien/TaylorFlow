@@ -81,7 +81,7 @@ def PN_amplitude(freq,ChirpMass,LuminosityDistance):
 def TaylorFlow(mass1,mass2,frequencies=None,LuminosityDistance=1.,t_c=0,phi_c=0.,f_low=10.,
                df=0.1,f_high=2000.,phase_order=0):
     """
-    TaylorFlow Main Function
+    taylorflow Main Function
     
     """
                          
