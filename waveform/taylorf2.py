@@ -3,7 +3,8 @@
 
 import tensorflow as tf
 import numpy as np
-from taylorflow.types import FreqSeries
+from TaylorFlow.types import FreqSeries
+import matplotlib.pyplot as plt
 
 
 class FailedWaveformError(Exception):
@@ -153,19 +154,21 @@ def getwaveform(mass1, mass2, luminositydistance=1., f_low=10.,
     calculation_frequencies = frequencies[k_min:k_max+1]
 
     # calculate phases and amplitudes
-    phases = pn_phases(calculation_frequencies, mass_total, mass_eta, phase_order)
-    i_phases = tf.multiply(tf.complex(0., 1.), tf.complex(phases - (np.pi / 4) + np.pi, 0.))
+
+    phase = tf.cast(tf.add(pn_phases(calculation_frequencies, mass_total, mass_eta, phase_order), (-np.pi/4)), dtype=tf.complex64)
     amplitude = pn_amplitude(calculation_frequencies, mass_chirp, l_distance)
 
     # Calculate waveform
-    waveform_shell = tf.Variable(tf.zeros(tf.shape(frequencies), dtype='complex64'))
-    waveform_calculation = tf.multiply(tf.complex(amplitude, 0.), tf.exp(i_phases))
-    waveform_indices = tf.constant(tf.range(k_min, k_max+1, 1))
+    waveform_shell = tf.Variable(tf.zeros(tf.shape(frequencies), dtype=tf.complex128))
+    waveform_phase = tf.add(-tf.math.cos(phase), tf.multiply(tf.complex(0., 1.), tf.math.sin(phase)))
+    waveform_calculation = tf.cast(tf.multiply(tf.complex(amplitude, 0.), waveform_phase),dtype=tf.complex128)
+    waveform_indices = tf.constant(tf.range(k_min, k_max+1, 1, dtype=tf.int64))
     waveform = tf.compat.v1.scatter_update(waveform_shell, waveform_indices, waveform_calculation)
 
     # calculate plus and cross polarizations
     plus = waveform.numpy()
     cross = tf.multiply(tf.complex(0., 1.), plus)
+
 
     htildep = FreqSeries(plus, delta_f=df)
     htildec = FreqSeries(cross, delta_f=df)
@@ -218,8 +221,8 @@ def getwaveform_sequence(mass1, mass2, sample_frequencies=None, luminositydistan
     plus = waveform.numpy()
     cross = tf.multiply(tf.complex(0., 1.), plus)
 
-    htildep = FreqSeries(plus, delta_f=df)
-    htildec = FreqSeries(cross, delta_f=df)
+    htilde_plus = FreqSeries(plus, delta_f=df)
+    htilde_cross = FreqSeries(cross, delta_f=df)
 
-    return htildep, htildec
+    return htilde_plus, htilde_cross
 
