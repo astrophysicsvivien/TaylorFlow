@@ -161,19 +161,14 @@ def getwaveform(mass1, mass2, luminositydistance=1., f_low=10.,
     # Calculate waveform
     waveform_shell = tf.Variable(tf.zeros(tf.shape(frequencies), dtype=tf.complex128))
     waveform_phase = tf.add(-tf.math.cos(phase), tf.multiply(tf.complex(0., 1.), tf.math.sin(phase)))
-    waveform_calculation = tf.cast(tf.multiply(tf.complex(amplitude, 0.), waveform_phase),dtype=tf.complex128)
+    waveform_calculation = tf.cast(tf.multiply(tf.complex(amplitude, 0.), waveform_phase), dtype=tf.complex128)
     waveform_indices = tf.constant(tf.range(k_min, k_max+1, 1, dtype=tf.int64))
     waveform = tf.compat.v1.scatter_update(waveform_shell, waveform_indices, waveform_calculation)
 
     # calculate plus and cross polarizations
-    plus = waveform.numpy()
-    cross = tf.multiply(tf.complex(0., 1.), plus)
+    data = waveform.numpy()
 
-
-    htildep = FreqSeries(plus, delta_f=df)
-    htildec = FreqSeries(cross, delta_f=df)
-
-    return htildep, htildec
+    return FreqSeries(data, delta_f=df)
 
 
 def getwaveform_sequence(mass1, mass2, sample_frequencies=None, luminositydistance=1., df=1. / 512, phase_order=7):
@@ -215,14 +210,10 @@ def getwaveform_sequence(mass1, mass2, sample_frequencies=None, luminositydistan
     amplitude = pn_amplitude(frequencies, mass_chirp, l_distance)
 
     # Calculate waveform
-    waveform = tf.multiply(tf.complex(amplitude, 0.), tf.exp(i_phases))
+    waveform_phase = tf.add(-tf.math.cos(phases), tf.multiply(tf.complex(0., 1.), tf.math.sin(phases)))
+    waveform = tf.cast(tf.multiply(tf.complex(amplitude, 0.), waveform_phase), dtype=tf.complex128)
 
-    # calculate plus and cross polarizations
-    plus = waveform.numpy()
-    cross = tf.multiply(tf.complex(0., 1.), plus)
+    # waveform data
+    data = waveform.numpy()
 
-    htilde_plus = FreqSeries(plus, delta_f=df)
-    htilde_cross = FreqSeries(cross, delta_f=df)
-
-    return htilde_plus, htilde_cross
-
+    return FreqSeries(data, delta_f=df)
