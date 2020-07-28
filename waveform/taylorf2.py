@@ -162,13 +162,14 @@ def getwaveform(mass1, mass2, luminositydistance=1., f_low=10.,
     waveform_shell = tf.Variable(tf.zeros(tf.shape(frequencies), dtype=tf.complex128))
     waveform_phase = tf.add(-tf.math.cos(phase), tf.multiply(tf.complex(0., 1.), tf.math.sin(phase)))
     waveform_calculation = tf.cast(tf.multiply(tf.complex(amplitude, 0.), waveform_phase), dtype=tf.complex128)
-    waveform_indices = tf.constant(tf.range(k_min, k_max+1, 1, dtype=tf.int64))
-    waveform = tf.compat.v1.scatter_update(waveform_shell, waveform_indices, waveform_calculation)
+    waveform_index_range = tf.range(k_min, k_max+1, 1, dtype=tf.int64)
+    waveform_indices = tf.constant(tf.reshape(waveform_index_range, [len(waveform_index_range), 1]))
+    waveform_shell.scatter_nd_update(waveform_indices, waveform_calculation)
 
-    # calculate plus and cross polarizations
-    data = waveform.numpy()
+    # waveform
+    waveform = waveform_shell.numpy()
 
-    return FreqSeries(data, delta_f=df)
+    return FreqSeries(waveform, delta_f=df)
 
 
 def getwaveform_sequence(mass1, mass2, sample_frequencies=None, luminositydistance=1., df=1. / 512, phase_order=7):

@@ -1,5 +1,4 @@
 import tensorflow as tf
-import pycbc.types
 import numpy as np
 
 """
@@ -36,6 +35,11 @@ class FreqSeries:
         """
         Converts Taylorflow Frequency Series into PyCBC Frequency Series
         """
+        try:
+            import pycbc.types
+        except ModuleNotFoundError('Pycbc must be installed in order to convert to pycbc object'):
+            pass
+
         _initial_array = np.array(self.data, dtype=np.complex128)
         _delta_f = self.df
         _epoch = ""
